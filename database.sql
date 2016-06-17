@@ -1,6 +1,0 @@
-CREATE TABLE animals (
-	id SERIAL PRIMARY KEY NOT NULL,
-	animal VARCHAR(30) UNIQUE,
-	animal_num SMALLINT
-	);
-	
