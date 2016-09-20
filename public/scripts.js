@@ -3,18 +3,22 @@ $( document ).ready(function(){
 
   $('#addButton').on('click', function(){  // get animal name from input
     var animalName = $('#animalIn').val();
+    console.log(animalName);
     var newAnimal = {
       "animal": animalName,
-      "animal_num": 5,//check that it's pulling this number. Need to set to random number between 1 and 100
     }; // end object
+    console.log(newAnimal);
     $.ajax({    //send new animal to database
       type: 'POST',
       url: '/addAnimal',
       data: newAnimal,
-      success: function(dataIn){
-            showAnimals();  // calling showAnimals function to refresh DOM
-      }
-    }); //end ajax
+      // success: function(dataIn){
+      //       showAnimals();  // calling showAnimals function to refresh DOM
+      // }
+      // success: function(dataIn){
+          // }
+    });// end ajax call
+    showAnimals();  // calling showAnimals function to refresh DOM
     clearInput(); // calls clearInput function to clear value of text input box
   }); //end button on click function
 
@@ -23,6 +27,7 @@ $( document ).ready(function(){
       document.getElementById('animalIn').value='';
     }   // end of clearinput box
 
+var animalOut;
 
 function showAnimals(){ // get animal list from database and appends to outputDiv
     $.ajax({
@@ -31,8 +36,9 @@ function showAnimals(){ // get animal list from database and appends to outputDi
       success: function(dataIn){
         $('#outputDiv').empty();  // resets div to empty
         for(i=0; i<dataIn.length; i++) {
-          var animalOut = "<p>" + dataIn[i].animal + ":  " + dataIn[i].animal_num;
+          animalOut = "<p>" + dataIn[i].animal + ":  " + dataIn[i].animal_num;
           $('#outputDiv').append(animalOut);
+          console.log("showAnimals: ", animalOut);
         }
       } // end success
     }); //end ajax call to get list
